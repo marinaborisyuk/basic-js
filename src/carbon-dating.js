@@ -13,11 +13,12 @@ module.exports = function dateSample(sampleActivity) {
   const FINAL_ACTIVITY = Number(sampleActivity);
   const k = 0.693 / HALF_LIFE_PERIOD;
   
-  let t = (Math.log(MODERN_ACTIVITY / FINAL_ACTIVITY)) / k;
+  let t = Math.floor(((Math.log(MODERN_ACTIVITY / FINAL_ACTIVITY)) / k ) + 1);
 
   if(t <= 0 || t == NaN)
   {
     return false;
-  }
-  return Math.floor(t + 1);
+  } 
+
+  return t;
 };
