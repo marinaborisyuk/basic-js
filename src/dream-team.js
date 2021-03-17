@@ -1,5 +1,4 @@
 const CustomError = require("../extensions/custom-error");
-
 module.exports = function createDreamTeam(members) {
 
   if(!members || members.length <= 0)
@@ -11,11 +10,14 @@ module.exports = function createDreamTeam(members) {
   {
     if(typeof members[i] == 'string')
     {
+      while(members[i].charAt(0) == ' '){
+        members[i] = members[i].replace(' ', '');
+      }
       str += (members[i]).charAt(0);
     }
   }
 
-  str = str.split().sort().join('').toUpperCase();
+  str = str.split('').sort().join('').toUpperCase().replace(' ', '');
 
   return str;
 };
