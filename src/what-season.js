@@ -1,21 +1,19 @@
 const CustomError = require("../extensions/custom-error");
 
-module.exports = function getSeason(/*date*/) {
-  throw new CustomError('Not implemented');
+module.exports = function getSeason(date) {
+  // throw new CustomError('Not implemented');
 
-  // if(!data || data.getFullYear() <= '1970')
+  // if(!date || date.getFullYear() <= '1970')
   //   return 'Unable to determine the time of year!';
 
-  // let newDate = 
+  if((date.getMonth() >= 0 && date.getMonth() <=1) || date.getMonth() == 11)
+    return 'winter';
+  if(date.getMonth() >= 2 && date.getMonth() <=4)
+    return 'spring';
 
-  // if((data.getMonth() >= 0 && data.getMonth() <=1) || data.getMonth() == 11)
-  //   return 'winter';
-  // if(data.getMonth() >= 2 && data.getMonth() <=4)
-  //   return 'spring';
+    if(date.getMonth() >= 5 && date.getMonth() <=7)
+    return 'summer';  
 
-  //   if(data.getMonth() >= 5 && data.getMonth() <=7)
-  //   return 'summer';  
-
-  //   if(data.getMonth() >= 8 && data.getMonth() <=10)
-  //   return 'autumn';
+    if(date.getMonth() >= 8 && date.getMonth() <=10)
+    return 'autumn';
 };
