@@ -4,6 +4,9 @@ module.exports = function getSeason(date) {
   if(!date || date ==  undefined)
     return 'Unable to determine the time of year!';
 
+  if (!date.getTime()) 
+    return 'THROWN';  
+
   if((date.getMonth() >= 0 && date.getMonth() <=1) || date.getMonth() == 11)
     return 'winter';
 
