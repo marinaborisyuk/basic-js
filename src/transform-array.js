@@ -1,79 +1,42 @@
 const CustomError = require("../extensions/custom-error");
 
-module.exports = function transform(arr) {
-  // throw new CustomError('Not implemented');
-  for(let i = 0; i < arr.length; i++)
-  {
-    switch(arr[i]) {
-      case '--discard-next':  
+  module.exports = function transform(arr) {
+    if(!arr) 
+      throw new Error();
+
+    let result = [];
+    const keys = ['--discard-next', '--discard-prev', '--double-next', '--double-prev'];
+
+    for(let i = 0; i < arr.length; i++) 
+    {
+      if(arr[i] === keys[0]) 
       {
-        if(arr[i+1] == undefined)
-          arr.splice(i, 1);
-        else
-        {
-          arr.splice(i, 2);
-          i--;
-        }      
-
-          break;
+        if(typeof(arr[i + 1]) !== 'undefined') 
+          i++;
       }
-      case '--discard-prev':
+      else if(arr[i] === keys[1]) 
+      {
+        if(typeof(arr[i - 1]) !== 'undefined') 
         {
-          if(arr[i-1] == undefined)
-            arr.splice(i, 1);
-          else
-            arr.splice(i-1, 2);  
-
-            break;
+          if(arr[i - 2] !== keys[0]) 
+            result.pop();
         }
-        case '--double-next':
-          {
-            if(arr[i+1] == undefined)
-              arr.splice(i, 1);
-            else
-              arr[i] = arr[i+1]; 
-
-              break;
-          }
-          case '--double-prev':
-            {
-              if(arr[i-1] == undefined)
-                arr.splice(i, 1);
-              else
-                arr[i] = arr[i-1]; 
-
-              break;
-            }
+      }
+      else if(arr[i] === keys[2]) 
+      {
+        if(typeof(arr[i + 1]) !== 'undefined') 
+          result.push(arr[i + 1]);
+      }
+      else if(arr[i] === keys[3]) 
+      {
+        if(typeof(arr[i - 1]) !== 'undefined') 
+        {
+          if(arr[i - 2] !== keys[0] ) 
+          result.push(result[result.length - 1]);
+        }
+      }
+      else result.push(arr[i]);
     }
-    // if(arr[i] == '--discard-next')
-    // {
-    //   if(arr[i+1] == undefined)
-    //     arr.splice(i--);
-    //   else
-    //     arr.splice(i, 2);  
-    // }
-    // if(arr[i] == '--discard-prev')
-    // {
-    //   if(arr[i-1] == undefined)
-    //     arr.splice(i--);
-    //   else
-    //     arr.splice(i-1, 2);  
-    // }
-    // if(arr[i] == '--double-next')
-    // {
-    //   if(arr[i+1] == undefined)
-    //     arr.splice(i--);
-    //   else
-    //     arr[i] = arr[i+1]; 
-    // }
-    // if(arr[i] == '--double-prev')
-    // {
-    //   if(arr[i-1] == undefined)
-    //     arr.splice(i--);
-    //   else
-    //     arr[i] = arr[i-1]; 
-    // }
-  }
 
-  return arr;
-};
+    return result;
+  };
