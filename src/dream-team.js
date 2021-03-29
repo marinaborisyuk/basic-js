@@ -15,8 +15,7 @@ module.exports = function createDreamTeam(members) {
       str += (members[i]).charAt(0);
     }
   }
-
-  str = str.split('').sort().join('').toUpperCase().replace(' ', '');
+  str = str.toUpperCase().split('').sort().join('');
 
   return str;
 };
